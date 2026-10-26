@@ -66,6 +66,10 @@
     btnToggleTheme: document.getElementById('btn-toggle-theme'),
     themeToggleIcon: document.getElementById('theme-toggle-icon'),
     themeToggleLabel: document.getElementById('theme-toggle-label'),
+    themeAudio: document.getElementById('theme-audio'),
+    musicVolume: document.getElementById('music-volume'),
+    btnToggleMute: document.getElementById('btn-toggle-mute'),
+    musicVolumeIcon: document.getElementById('music-volume-icon'),
 
     // Window 3: Editor Elements
     editorActiveId: document.getElementById('editor-active-id'),
@@ -125,6 +129,99 @@
         showToast('Theme changed for this visit, but your browser could not save the preference.', 'warn');
       }
     });
+  }
+
+  // =========================================================================
+  // BACKGROUND MUSIC
+  // =========================================================================
+  function initBackgroundMusic() {
+    const audio = el.themeAudio;
+    if (!audio) return;
+    let errorReported = false;
+    let lastNonZeroVolume = 0.1;
+
+    function syncVolumeControls() {
+      const percent = Math.round(audio.volume * 100);
+      const silent = audio.volume === 0 || audio.muted;
+      if (audio.volume > 0) lastNonZeroVolume = audio.volume;
+      if (el.musicVolume) {
+        el.musicVolume.value = String(percent);
+        el.musicVolume.setAttribute('aria-valuetext', `${percent}%`);
+      }
+      if (el.btnToggleMute) {
+        el.btnToggleMute.setAttribute('aria-pressed', String(silent));
+        el.btnToggleMute.title = silent ? 'Unmute music' : 'Mute music';
+      }
+      if (el.musicVolumeIcon) {
+        el.musicVolumeIcon.textContent = silent ? 'volume_off' :
+          percent <= 50 ? 'volume_down' : 'volume_up';
+      }
+    }
+
+    if (el.btnToggleMute) {
+      el.btnToggleMute.addEventListener('click', () => {
+        if (audio.muted || audio.volume === 0) {
+          if (audio.volume === 0) audio.volume = lastNonZeroVolume;
+          audio.muted = false;
+        } else {
+          audio.muted = true;
+        }
+        syncVolumeControls();
+      });
+    }
+    if (el.musicVolume) {
+      el.musicVolume.addEventListener('input', () => {
+        audio.volume = Number(el.musicVolume.value) / 100;
+        audio.muted = false;
+        syncVolumeControls();
+      });
+    }
+    audio.addEventListener('volumechange', syncVolumeControls);
+
+    function removeGestureListeners() {
+      document.removeEventListener('click', startPlayback, true);
+      document.removeEventListener('keydown', startPlayback, true);
+    }
+
+    function reportFailure(error) {
+      if (errorReported) return;
+      errorReported = true;
+      removeGestureListeners();
+      console.error('Could not play background music:', error);
+      showToast('The theme song could not be played. Please refresh to try again.', 'warn');
+    }
+
+    async function startPlayback() {
+      try {
+        await audio.play();
+      } catch (error) {
+        if (error.name === 'NotAllowedError') {
+          console.info('Background music is waiting for a tap or keypress.');
+        } else if (error.name === 'AbortError') {
+          console.warn('Background music was interrupted; it will retry on the next interaction.');
+        } else {
+          reportFailure(error);
+        }
+      }
+    }
+
+    audio.addEventListener('playing', removeGestureListeners, { once: true });
+    audio.addEventListener('error', () => reportFailure(audio.error));
+    document.addEventListener('click', startPlayback, true);
+    document.addEventListener('keydown', startPlayback, true);
+    // Set volume before attaching the source so autoplay never starts at full volume.
+    audio.volume = 0.1;
+    syncVolumeControls();
+    if (Math.abs(audio.volume - 0.1) > 0.001) {
+      console.warn('This browser does not support programmatic music volume.');
+      if (el.musicVolume) {
+        el.musicVolume.disabled = true;
+        el.musicVolume.title = 'Use your device volume controls instead.';
+      }
+      showToast('This browser uses device volume. Use your device volume buttons instead.', 'warn');
+    }
+    audio.src = './theme.mp3';
+    startPlayback();
   }
 
   // =========================================================================
@@ -1116,6 +1213,7 @@
   // =========================================================================
   function init() {
     updateThemeButton();
+    initBackgroundMusic();
     // Start at Window 1 (Lock Screen)
     showWindow('lock');
     updateStorageUI();

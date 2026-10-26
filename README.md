@@ -6,6 +6,13 @@ Theme colors are shared CSS variables in `css/styles.css`, used by both Tailwind
 
 The theme toggle immediately to the left of **Lock Vault** shows the current theme: **Light mode** with a sun icon or **Dark mode** with a moon icon. Clicking it switches every window, Markdown preview, dialog, notification, and native date/time picker between the pastel light theme and a matching plum-and-rose dark palette with soft pink text and muted gold accents. Light mode is the default. Your choice is saved per browser in `localStorage` and restored before the page is styled, including on the lock screen. If the browser blocks saving the preference, the theme still changes for the current visit and a warning is shown.
 
+### Background music
+The root-level `theme.mp3` is played on a single looping audio element across all windows, starting at 10% volume on each page load. A compact volume panel immediately left of the theme toggle offers a keyboard-accessible 0-100 slider without a visible percentage; screen readers still receive the current percentage. Click the speaker button to mute/unmute without losing the selected volume. Setting the slider to 0 also silences the music; clicking the speaker then restores the last nonzero volume. Adjusting the slider unmutes the music. Changes apply immediately without restarting playback and remain in effect while navigating between windows. The panel matches both themes and the header wraps on narrow screens.
+
+If the browser blocks audible autoplay, playback is retried on the first click/tap or keypress. Browsers that ignore programmatic volume (notably some mobile browsers) use device volume instead; the slider is disabled and a warning is shown. Playback while the browser is backgrounded or the device is locked depends on the browser and OS.
+
+Include `theme.mp3` when committing and deploying. Only publish audio you own or have permission to distribute; the deployed file can be downloaded directly.
+
 ---
 
 ## Architecture & 3-Window Workflow
