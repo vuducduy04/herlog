@@ -1,0 +1,406 @@
+<!DOCTYPE html><html class="dark" lang="en" style=""><head><meta charset="utf-8"><meta content="width=device-width, initial-scale=1.0" name="viewport"><meta content="web_dashboard" name="shell-type"><link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&amp;family=JetBrains+Mono:wght@400;500;600&amp;display=swap" rel="stylesheet"><link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"><style>@layer base{html,body{margin:0;padding:0;}body{overscroll-behavior:none;}main>:first-child{margin-top:0!important;}main>:last-child{margin-bottom:0!important;}}::-webkit-scrollbar{display:none;}</style><script src="https://cdn.tailwindcss.com"></script><script id="tailwind-config">tailwind.config={"darkMode":"class","theme":{"extend":{"colors":{"inverse-surface":"#d4e4fa","on-error-container":"#ffdad6","on-background":"#d4e4fa","error":"#ffb4ab","tertiary-fixed":"#ffdad7","on-surface-variant":"#bbcabf","tertiary-fixed-dim":"#ffb3af","surface-container":"#122131","on-tertiary-fixed-variant":"#842225","error-container":"#93000a","on-primary":"#003824","on-primary-fixed-variant":"#005236","on-error":"#690005","surface-bright":"#2c3a4c","surface-variant":"#273647","background":"#051424","primary-fixed":"#6ffbbe","secondary":"#4cd7f6","surface":"#051424","surface-container-low":"#0d1c2d","secondary-fixed":"#acedff","surface-container-highest":"#273647","primary-container":"#10b981","on-tertiary-container":"#711419","secondary-fixed-dim":"#4cd7f6","on-primary-fixed":"#002113","tertiary-container":"#fc7c78","on-primary-container":"#00422b","surface-container-lowest":"#010f1f","on-secondary-container":"#00424e","surface-dim":"#051424","surface-tint":"#4edea3","primary":"#4edea3","on-surface":"#d4e4fa","primary-fixed-dim":"#4edea3","tertiary":"#ffb3af","outline-variant":"#3c4a42","surface-container-high":"#1c2b3c","on-secondary":"#003640","outline":"#86948a","inverse-on-surface":"#233143","on-secondary-fixed-variant":"#004e5c","on-secondary-fixed":"#001f26","secondary-container":"#03b5d3","on-tertiary":"#650911","inverse-primary":"#006c49","on-tertiary-fixed":"#410005"},"borderRadius":{"DEFAULT":"0.125rem","lg":"0.25rem","xl":"0.5rem","full":"0.75rem"},"spacing":{"space-xs":"0.25rem","space-md":"0.75rem","space-sm":"0.5rem","space-xl":"2rem","space-lg":"1.25rem","margin-desktop":"2rem","margin":"1rem","gutter":"1rem","gutter-desktop":"1.5rem","margin-tablet":"1.5rem"},"fontFamily":{"headline-md":["Inter"],"body-lg":["Inter"],"code-body":["JetBrains Mono"],"headline-lg-mobile":["Inter"],"headline-lg":["Inter"],"label-mono":["JetBrains Mono"],"timestamp":["JetBrains Mono"],"display-hero":["Inter"],"headline-sm":["Inter"],"pin-display":["JetBrains Mono"],"display-hero-mobile":["Inter"],"body-sm":["Inter"],"body-md":["Inter"]},"fontSize":{"headline-md":["20px",{"lineHeight":"28px","letterSpacing":"-0.015em","fontWeight":"500"}],"body-lg":["16px",{"lineHeight":"26px","fontWeight":"400"}],"code-body":["13px",{"lineHeight":"20px","fontWeight":"400"}],"headline-lg-mobile":["22px",{"lineHeight":"30px","letterSpacing":"-0.01em","fontWeight":"600"}],"headline-lg":["28px",{"lineHeight":"36px","letterSpacing":"-0.02em","fontWeight":"600"}],"label-mono":["11px",{"lineHeight":"14px","letterSpacing":"0.05em","fontWeight":"500"}],"timestamp":["12px",{"lineHeight":"16px","letterSpacing":"0.02em","fontWeight":"400"}],"display-hero":["40px",{"lineHeight":"48px","letterSpacing":"-0.03em","fontWeight":"600"}],"headline-sm":["16px",{"lineHeight":"24px","fontWeight":"500"}],"pin-display":["24px",{"lineHeight":"32px","letterSpacing":"0.2em","fontWeight":"600"}],"display-hero-mobile":["30px",{"lineHeight":"38px","letterSpacing":"-0.02em","fontWeight":"600"}],"body-sm":["13px",{"lineHeight":"18px","fontWeight":"400"}],"body-md":["14px",{"lineHeight":"22px","fontWeight":"400"}]}}}};</script></head><body class="bg-background font-body-md text-on-surface antialiased selection:bg-primary-container selection:text-on-primary-container min-h-screen"><div class=""><main class="relative w-full min-h-screen bg-surface"><div class="flex flex-col w-full">
+<!-- Subtle Ambient Glow -->
+<div class="relative w-full overflow-hidden">
+<div class="absolute -top-32 right-1/4 w-96 h-96 bg-primary/5 rounded-full blur-3xl pointer-events-none"></div>
+<div class="absolute top-1/2 -left-20 w-80 h-80 bg-secondary/5 rounded-full blur-3xl pointer-events-none"></div>
+<!-- Main Workspace Split Container -->
+<div class="flex flex-col lg:flex-row w-full gap-space-lg p-margin-desktop">
+<!-- ================= LEFT REGION (3/4 Screen / Comprehensive Ledger) ================= -->
+<section class="flex flex-col flex-1 lg:basis-3/4 min-w-0 gap-space-md">
+<!-- Ledger Utility & Filter Toolbar -->
+<div class="bg-surface-container-low p-space-md rounded-xl shadow-md flex flex-col md:flex-row items-stretch md:items-center justify-between gap-space-md">
+<!-- Search Bar -->
+<div class="relative flex-1 min-w-0">
+<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-on-surface-variant text-[18px]">search</span>
+<input class="w-full bg-surface-container-lowest text-on-surface font-body-sm text-body-sm pl-10 pr-space-md py-2 rounded-lg focus:outline-none focus:ring-1 focus:ring-secondary placeholder:text-outline" id="log-search-input" placeholder="Search cryptographic signatures, titles, sha256 or tags..." type="text">
+</div>
+<!-- Filters & Action Cluster -->
+<div class="flex items-center gap-space-sm shrink-0 flex-wrap">
+<!-- Filter Dropdown -->
+
+<!-- Sort Toggle -->
+<button class="flex items-center gap-1 bg-surface-container-lowest px-space-sm py-1.5 rounded-lg text-on-surface-variant hover:text-on-surface transition-colors" id="sort-order-btn">
+<span class="material-symbols-outlined text-[16px]">swap_vert</span>
+<span class="font-label-mono text-label-mono uppercase">Sort: Date (Desc)</span>
+</button>
+<!-- Refresh Cryptographic State -->
+<button class="flex items-center justify-center p-2 rounded-lg bg-surface-container-lowest text-on-surface-variant hover:text-primary transition-colors" title="Verify Hash Ledger">
+<span class="material-symbols-outlined text-[18px]">sync</span>
+</button>
+</div>
+</div>
+<!-- Ledger Table Card -->
+<div class="bg-surface-container-low rounded-xl shadow-xl overflow-hidden flex flex-col">
+<!-- Table Header Metabar -->
+<div class="grid grid-cols-12 gap-space-sm px-space-lg py-space-sm bg-surface-container-high/40 text-on-surface-variant font-label-mono text-label-mono uppercase tracking-wider items-center">
+<div class="col-span-1 flex items-center gap-2">
+<input class="w-4 h-4 rounded bg-surface-container-lowest accent-primary cursor-pointer" id="select-all-checkbox" type="checkbox">
+<span class="hidden sm:inline">Mark</span>
+</div>
+<div class="col-span-3 lg:col-span-2">Timestamp</div>
+<div class="col-span-5 lg:col-span-6">Log Scope &amp; Digest</div>
+
+<div class="hidden sm:block sm:col-span-2 text-right">Words</div>
+<div class="col-span-3 lg:col-span-1 text-right">Signature</div>
+</div>
+<!-- Interactive Ledger Rows Container -->
+<div class="flex flex-col" id="log-list-container">
+<!-- Log Row 1 (Pre-selected) -->
+<div class="log-row group cursor-pointer grid grid-cols-12 gap-space-sm px-space-lg py-3 items-center transition-all duration-150 bg-surface-container-high/80 text-on-surface shadow-sm" data-author="ops-architect@corp.internal" data-category="Security" data-hash="0x4e9c71b128fa77b3df600b" data-id="LOG-8942-SEC" data-preview="Executed sovereign symmetric key rotation across all production worker enclaves. Zero-downtime re-encryption successfully terminated with 0 hash anomalies reported on master consensus." data-size="4.2 KB" data-status="VERIFIED" data-timestamp="2025-05-18 17:41:09" data-title="Post-Incident Patching: KMS Key Rotation Validation" data-words="842">
+<div class="col-span-1 flex items-center gap-2" onclick="event.stopPropagation()">
+<input checked="" class="row-selector w-4 h-4 rounded bg-surface-container-lowest accent-primary cursor-pointer" type="checkbox">
+</div>
+<div class="col-span-3 lg:col-span-2 flex flex-col">
+<span class="font-timestamp text-timestamp text-secondary">17:41:09 UTC</span>
+<span class="font-label-mono text-label-mono text-on-surface-variant">2025-05-18</span>
+</div>
+<div class="col-span-5 lg:col-span-6 flex flex-col min-w-0 pr-space-sm">
+<div class="flex items-center gap-1.5">
+<span class="w-1.5 h-1.5 rounded-full bg-primary shrink-0"></span>
+<span class="font-headline-sm text-headline-sm text-on-surface truncate font-semibold">Post-Incident Patching: KMS Key Rotation</span>
+</div>
+<p class="font-body-sm text-body-sm text-on-surface-variant truncate">Executed sovereign symmetric key rotation across all production enclaves. Zero anomalies recorded...</p>
+</div>
+
+<div class="hidden sm:flex sm:col-span-2 flex-col items-end justify-center font-code-body text-code-body text-on-surface-variant">
+<span class="">842 w</span>
+<span class="font-label-mono text-label-mono text-outline">4.2 KB</span>
+</div>
+<div class="col-span-3 lg:col-span-1 flex items-center justify-end">
+<span class="font-code-body text-code-body text-secondary truncate max-w-[70px]" title="0x4e9c71b128fa77b3df600b">0x4e9c..</span>
+</div>
+</div>
+<!-- Log Row 2 -->
+<div class="log-row group cursor-pointer grid grid-cols-12 gap-space-sm px-space-lg py-3 items-center transition-all duration-150 hover:bg-surface-container-high/40 text-on-surface" data-author="deploy-agent-12" data-category="Deployment" data-hash="0x78ab091c62f401ea187c2b" data-id="LOG-8941-DEP" data-preview="Canary rollout of envoy service mesh with strict mTLS v1.3 enforcement. Verified cipher suites: ECDHE-ECDSA-AES256-GCM-SHA384 and CHACHA20-POLY1305 across all 4 regions." data-size="2.1 KB" data-status="VERIFIED" data-timestamp="2025-05-18 15:20:44" data-title="Ingress Proxy Cluster v2.14.0 Zero-Trust Rollout" data-words="418">
+<div class="col-span-1 flex items-center gap-2" onclick="event.stopPropagation()">
+<input class="row-selector w-4 h-4 rounded bg-surface-container-lowest accent-primary cursor-pointer" type="checkbox">
+</div>
+<div class="col-span-3 lg:col-span-2 flex flex-col">
+<span class="font-timestamp text-timestamp text-secondary">15:20:44 UTC</span>
+<span class="font-label-mono text-label-mono text-on-surface-variant">2025-05-18</span>
+</div>
+<div class="col-span-5 lg:col-span-6 flex flex-col min-w-0 pr-space-sm">
+<div class="flex items-center gap-1.5">
+<span class="w-1.5 h-1.5 rounded-full bg-secondary shrink-0"></span>
+<span class="font-headline-sm text-headline-sm text-on-surface truncate font-semibold">Ingress Proxy Cluster v2.14.0 Zero-Trust</span>
+</div>
+<p class="font-body-sm text-body-sm text-on-surface-variant truncate">Canary rollout of envoy service mesh with strict mTLS v1.3 enforcement across nodes...</p>
+</div>
+
+<div class="hidden sm:flex sm:col-span-2 flex-col items-end justify-center font-code-body text-code-body text-on-surface-variant">
+<span class="">418 w</span>
+<span class="font-label-mono text-label-mono text-outline">2.1 KB</span>
+</div>
+<div class="col-span-3 lg:col-span-1 flex items-center justify-end">
+<span class="font-code-body text-code-body text-secondary truncate max-w-[70px]" title="0x78ab091c62f401ea187c2b">0x78ab..</span>
+</div>
+</div>
+<!-- Log Row 3 -->
+<div class="log-row group cursor-pointer grid grid-cols-12 gap-space-sm px-space-lg py-3 items-center transition-all duration-150 hover:bg-surface-container-high/40 text-on-surface" data-author="sec-auditor-root" data-category="Audit" data-hash="0x110fd49c5e3178bb09ac11" data-id="LOG-8940-AUD" data-preview="Automated purge of temporary IAM sessions older than 4 hours. Revoked 3 expired engineering emergency tokens and generated cryptographic audit receipt for compliance logs." data-size="6.9 KB" data-status="SEALED" data-timestamp="2025-05-18 11:05:02" data-title="Quarterly Access Reconciliation &amp; Ephemeral Roles" data-words="1205">
+<div class="col-span-1 flex items-center gap-2" onclick="event.stopPropagation()">
+<input class="row-selector w-4 h-4 rounded bg-surface-container-lowest accent-primary cursor-pointer" type="checkbox">
+</div>
+<div class="col-span-3 lg:col-span-2 flex flex-col">
+<span class="font-timestamp text-timestamp text-secondary">11:05:02 UTC</span>
+<span class="font-label-mono text-label-mono text-on-surface-variant">2025-05-18</span>
+</div>
+<div class="col-span-5 lg:col-span-6 flex flex-col min-w-0 pr-space-sm">
+<div class="flex items-center gap-1.5">
+<span class="w-1.5 h-1.5 rounded-full bg-primary-container shrink-0"></span>
+<span class="font-headline-sm text-headline-sm text-on-surface truncate font-semibold">Quarterly Access Reconciliation &amp; Ephemeral</span>
+</div>
+<p class="font-body-sm text-body-sm text-on-surface-variant truncate">Automated purge of temporary IAM sessions older than 4 hours. Revoked 3 expired tokens...</p>
+</div>
+
+<div class="hidden sm:flex sm:col-span-2 flex-col items-end justify-center font-code-body text-code-body text-on-surface-variant">
+<span class="">1,205 w</span>
+<span class="font-label-mono text-label-mono text-outline">6.9 KB</span>
+</div>
+<div class="col-span-3 lg:col-span-1 flex items-center justify-end">
+<span class="font-code-body text-code-body text-secondary truncate max-w-[70px]" title="0x110fd49c5e3178bb09ac11">0x110f..</span>
+</div>
+</div>
+<!-- Log Row 4 -->
+<div class="log-row group cursor-pointer grid grid-cols-12 gap-space-sm px-space-lg py-3 items-center transition-all duration-150 hover:bg-surface-container-high/40 text-on-surface" data-author="sre-oncall@corp.internal" data-category="Note" data-hash="0x8900ac9f7d23a2cb1e89ff" data-id="LOG-8939-NOT" data-preview="Investigation concluded: simultaneously expiring session keys induced severe database CPU spikes on shard 4. Recommendation to implement jittered TTLs is documented in ticket SEC-409." data-size="3.7 KB" data-status="UNSEALED" data-timestamp="2025-05-17 22:15:30" data-title="Postmortem Notes: Redis Cache Invalidation Storm" data-words="652">
+<div class="col-span-1 flex items-center gap-2" onclick="event.stopPropagation()">
+<input class="row-selector w-4 h-4 rounded bg-surface-container-lowest accent-primary cursor-pointer" type="checkbox">
+</div>
+<div class="col-span-3 lg:col-span-2 flex flex-col">
+<span class="font-timestamp text-timestamp text-secondary">22:15:30 UTC</span>
+<span class="font-label-mono text-label-mono text-on-surface-variant">2025-05-17</span>
+</div>
+<div class="col-span-5 lg:col-span-6 flex flex-col min-w-0 pr-space-sm">
+<div class="flex items-center gap-1.5">
+<span class="w-1.5 h-1.5 rounded-full bg-outline shrink-0"></span>
+<span class="font-headline-sm text-headline-sm text-on-surface truncate font-semibold">Postmortem Notes: Redis Invalidation Storm</span>
+</div>
+<p class="font-body-sm text-body-sm text-on-surface-variant truncate">Investigation concluded: simultaneously expiring session keys induced DB spikes...</p>
+</div>
+
+<div class="hidden sm:flex sm:col-span-2 flex-col items-end justify-center font-code-body text-code-body text-on-surface-variant">
+<span class="">652 w</span>
+<span class="font-label-mono text-label-mono text-outline">3.7 KB</span>
+</div>
+<div class="col-span-3 lg:col-span-1 flex items-center justify-end">
+<span class="font-code-body text-code-body text-secondary truncate max-w-[70px]" title="0x8900ac9f7d23a2cb1e89ff">0x8900..</span>
+</div>
+</div>
+<!-- Log Row 5 -->
+<div class="log-row group cursor-pointer grid grid-cols-12 gap-space-sm px-space-lg py-3 items-center transition-all duration-150 hover:bg-surface-container-high/40 text-on-surface" data-author="netsec-daemon" data-category="Security" data-hash="0xcc9831ef55209ac741b002" data-id="LOG-8938-SEC" data-preview="Blocked port 22 and legacy rsync protocols across all outer tier gateways. Enforced WireGuard peer tunneling for administrative telemetry pipelines." data-size="1.6 KB" data-status="VERIFIED" data-timestamp="2025-05-17 19:02:18" data-title="Firewall Egress Rule Mutation: Zero-Trust Strict" data-words="289">
+<div class="col-span-1 flex items-center gap-2" onclick="event.stopPropagation()">
+<input class="row-selector w-4 h-4 rounded bg-surface-container-lowest accent-primary cursor-pointer" type="checkbox">
+</div>
+<div class="col-span-3 lg:col-span-2 flex flex-col">
+<span class="font-timestamp text-timestamp text-secondary">19:02:18 UTC</span>
+<span class="font-label-mono text-label-mono text-on-surface-variant">2025-05-17</span>
+</div>
+<div class="col-span-5 lg:col-span-6 flex flex-col min-w-0 pr-space-sm">
+<div class="flex items-center gap-1.5">
+<span class="w-1.5 h-1.5 rounded-full bg-primary shrink-0"></span>
+<span class="font-headline-sm text-headline-sm text-on-surface truncate font-semibold">Firewall Egress Rule Mutation: Zero-Trust</span>
+</div>
+<p class="font-body-sm text-body-sm text-on-surface-variant truncate">Blocked port 22 and legacy rsync protocols across outer tier gateways...</p>
+</div>
+
+<div class="hidden sm:flex sm:col-span-2 flex-col items-end justify-center font-code-body text-code-body text-on-surface-variant">
+<span class="">289 w</span>
+<span class="font-label-mono text-label-mono text-outline">1.6 KB</span>
+</div>
+<div class="col-span-3 lg:col-span-1 flex items-center justify-end">
+<span class="font-code-body text-code-body text-secondary truncate max-w-[70px]" title="0xcc9831ef55209ac741b002">0xcc98..</span>
+</div>
+</div>
+<!-- Log Row 6 -->
+<div class="log-row group cursor-pointer grid grid-cols-12 gap-space-sm px-space-lg py-3 items-center transition-all duration-150 hover:bg-surface-container-high/40 text-on-surface" data-author="db-orchestrator" data-category="Deployment" data-hash="0x5541098ef72bcda11094ea" data-id="LOG-8937-DEP" data-preview="Online partition redistribution executed with zero locks on live client transactions. Integrity checksum verified across 4,200,000 ledger record chunks." data-size="2.9 KB" data-status="VERIFIED" data-timestamp="2025-05-16 08:44:11" data-title="Database Migration: Shard 09 Rebalance" data-words="531">
+<div class="col-span-1 flex items-center gap-2" onclick="event.stopPropagation()">
+<input class="row-selector w-4 h-4 rounded bg-surface-container-lowest accent-primary cursor-pointer" type="checkbox">
+</div>
+<div class="col-span-3 lg:col-span-2 flex flex-col">
+<span class="font-timestamp text-timestamp text-secondary">08:44:11 UTC</span>
+<span class="font-label-mono text-label-mono text-on-surface-variant">2025-05-16</span>
+</div>
+<div class="col-span-5 lg:col-span-6 flex flex-col min-w-0 pr-space-sm">
+<div class="flex items-center gap-1.5">
+<span class="w-1.5 h-1.5 rounded-full bg-secondary shrink-0"></span>
+<span class="font-headline-sm text-headline-sm text-on-surface truncate font-semibold">Database Migration: Shard 09 Rebalance</span>
+</div>
+<p class="font-body-sm text-body-sm text-on-surface-variant truncate">Online partition redistribution executed with zero locks on live client transactions...</p>
+</div>
+
+<div class="hidden sm:flex sm:col-span-2 flex-col items-end justify-center font-code-body text-code-body text-on-surface-variant">
+<span class="">531 w</span>
+<span class="font-label-mono text-label-mono text-outline">2.9 KB</span>
+</div>
+<div class="col-span-3 lg:col-span-1 flex items-center justify-end">
+<span class="font-code-body text-code-body text-secondary truncate max-w-[70px]" title="0x5541098ef72bcda11094ea">0x5541..</span>
+</div>
+</div>
+</div>
+<!-- Bottom Ledger Status / Count -->
+<div class="px-space-lg py-space-sm bg-surface-container-lowest flex items-center justify-between text-on-surface-variant font-label-mono text-label-mono">
+<div class="flex items-center gap-space-sm">
+<span class="w-2 h-2 rounded-full bg-primary animate-pulse"></span>
+<span class="">Showing 6 of 1,428 Ledger Nodes</span>
+</div>
+
+</div>
+</div>
+<!-- Inline Visual Richness: Verification Sparkline Activity Graph -->
+
+</section>
+<!-- ================= RIGHT REGION (1/4 Screen / Control & Inspector Panel) ================= -->
+<aside class="flex flex-col lg:basis-1/4 min-w-[280px] shrink-0 gap-space-md">
+<!-- Command Panel: Exactly the 2 requested Primary Buttons -->
+<div class="bg-surface-container-low p-space-lg rounded-xl shadow-lg flex flex-col gap-space-md">
+<div class="flex items-center justify-between pb-space-xs">
+<span class="font-label-mono text-label-mono text-on-surface-variant uppercase tracking-wider">Vault Actions</span>
+<span class="w-2 h-2 rounded-full bg-primary"></span>
+</div>
+<!-- Primary Button 1: "New Log" (+ New Log prominent emerald button style with shortcut) -->
+<button class="group w-full py-3 px-space-md bg-primary-container hover:bg-primary-fixed text-on-primary font-headline-sm text-headline-sm rounded-lg flex items-center justify-between shadow-md transition-all active:scale-[0.98]" id="btn-new-log">
+<div class="flex items-center gap-space-sm">
+<span class="material-symbols-outlined text-[20px] font-bold">add</span>
+<span class="font-semibold tracking-tight">New Log</span>
+</div>
+<kbd class="bg-surface-container-lowest/30 px-1.5 py-0.5 rounded font-code-body text-code-body text-on-primary">Ctrl+N</kbd>
+</button>
+<!-- Primary Button 2: "Select Log" (Secondary/accent outlined button for selection/batch mode) -->
+<button class="w-full py-2.5 px-space-md bg-surface-container-high/60 hover:bg-surface-container-highest text-secondary hover:text-on-surface border border-secondary/40 hover:border-secondary rounded-lg flex items-center justify-between shadow-sm transition-all" id="btn-select-log">
+<div class="flex items-center gap-space-sm">
+<span class="material-symbols-outlined text-[18px]">checklist</span>
+<span class="font-headline-sm text-headline-sm font-medium">Select Log</span>
+</div>
+<span class="font-label-mono text-label-mono px-2 py-0.5 rounded-full bg-secondary/15 text-secondary" id="selected-counter-badge">
+              1 Active
+            </span>
+</button>
+</div>
+<!-- Global Summary Stats Metric Card -->
+
+<!-- Selected Log Live Preview Drawer / Inspector Canvas -->
+
+</aside>
+</div>
+</div>
+</div>
+<script>
+  (function() {
+    // Interactive State Management
+    const logRows = document.querySelectorAll('.log-row');
+    const selectAllCheckbox = document.getElementById('select-all-checkbox');
+    const rowCheckboxes = document.querySelectorAll('.row-selector');
+    const selectedBadge = document.getElementById('selected-counter-badge');
+    const searchInput = document.getElementById('log-search-input');
+    const categoryFilter = document.getElementById('category-filter');
+    const newLogBtn = document.getElementById('btn-new-log');
+    const selectLogBtn = document.getElementById('btn-select-log');
+
+    // Preview elements
+    const previewLogId = document.getElementById('preview-log-id');
+    const previewLogTitle = document.getElementById('preview-log-title');
+    const previewCategoryTag = document.getElementById('preview-category-tag');
+    const previewWordsTag = document.getElementById('preview-words-tag');
+    const previewSizeTag = document.getElementById('preview-size-tag');
+    const previewSnippetText = document.getElementById('preview-snippet-text');
+    const previewAuthor = document.getElementById('preview-author');
+    const previewTimestamp = document.getElementById('preview-timestamp');
+    const previewHash = document.getElementById('preview-hash');
+    const previewStatusPill = document.getElementById('preview-status-pill');
+
+    function updateSelectionStats() {
+      const checkedBoxes = document.querySelectorAll('.row-selector:checked');
+      const count = checkedBoxes.length;
+      if (selectedBadge) {
+        selectedBadge.textContent = `${count} Active`;
+      }
+    }
+
+    // Row selection click to highlight & update preview
+    logRows.forEach(row => {
+      row.addEventListener('click', () => {
+        logRows.forEach(r => {
+          r.classList.remove('bg-surface-container-high/80', 'shadow-sm');
+          r.classList.add('hover:bg-surface-container-high/40');
+        });
+
+        row.classList.add('bg-surface-container-high/80', 'shadow-sm');
+        row.classList.remove('hover:bg-surface-container-high/40');
+
+        // Extract metadata
+        const id = row.getAttribute('data-id') || '';
+        const title = row.getAttribute('data-title') || '';
+        const category = row.getAttribute('data-category') || '';
+        const timestamp = row.getAttribute('data-timestamp') || '';
+        const author = row.getAttribute('data-author') || '';
+        const hash = row.getAttribute('data-hash') || '';
+        const words = row.getAttribute('data-words') || '';
+        const size = row.getAttribute('data-size') || '';
+        const status = row.getAttribute('data-status') || 'VERIFIED';
+        const preview = row.getAttribute('data-preview') || '';
+
+        // Inject into preview drawer
+        if (previewLogId) previewLogId.textContent = id;
+        if (previewLogTitle) previewLogTitle.textContent = title;
+        if (previewCategoryTag) {
+          previewCategoryTag.textContent = category;
+          if (category === 'Security') {
+            previewCategoryTag.className = 'px-2 py-0.5 rounded font-label-mono text-label-mono uppercase bg-error-container/20 text-error';
+          } else if (category === 'Deployment') {
+            previewCategoryTag.className = 'px-2 py-0.5 rounded font-label-mono text-label-mono uppercase bg-secondary-container/20 text-secondary';
+          } else if (category === 'Audit') {
+            previewCategoryTag.className = 'px-2 py-0.5 rounded font-label-mono text-label-mono uppercase bg-primary-container/20 text-primary';
+          } else {
+            previewCategoryTag.className = 'px-2 py-0.5 rounded font-label-mono text-label-mono uppercase bg-surface-container-highest text-on-surface-variant';
+          }
+        }
+        if (previewWordsTag) previewWordsTag.textContent = `${words} words`;
+        if (previewSizeTag) previewSizeTag.textContent = size;
+        if (previewSnippetText) previewSnippetText.textContent = preview;
+        if (previewAuthor) previewAuthor.textContent = author;
+        if (previewTimestamp) previewTimestamp.textContent = timestamp;
+        if (previewHash) previewHash.textContent = hash;
+        if (previewStatusPill) previewStatusPill.textContent = status;
+      });
+    });
+
+    // Checkbox toggles
+    rowCheckboxes.forEach(cb => {
+      cb.addEventListener('change', updateSelectionStats);
+    });
+
+    if (selectAllCheckbox) {
+      selectAllCheckbox.addEventListener('change', (e) => {
+        rowCheckboxes.forEach(cb => {
+          cb.checked = e.target.checked;
+        });
+        updateSelectionStats();
+      });
+    }
+
+    // Secondary Action Button: "Select Log" toggles selection mode / selects all active
+    if (selectLogBtn) {
+      selectLogBtn.addEventListener('click', () => {
+        const anyUnchecked = Array.from(rowCheckboxes).some(cb => !cb.checked);
+        rowCheckboxes.forEach(cb => {
+          cb.checked = anyUnchecked;
+        });
+        if (selectAllCheckbox) selectAllCheckbox.checked = anyUnchecked;
+        updateSelectionStats();
+      });
+    }
+
+    // Primary Action Button 1: "New Log" feedback
+    if (newLogBtn) {
+      newLogBtn.addEventListener('click', () => {
+        const originalText = newLogBtn.innerHTML;
+        newLogBtn.innerHTML = `
+          <div class="flex items-center gap-space-sm">
+            <span class="material-symbols-outlined text-[20px] animate-spin">refresh</span>
+            <span class="font-semibold tracking-tight">Initializing Draft...</span>
+          </div>
+          <kbd class="bg-surface-container-lowest/30 px-1.5 py-0.5 rounded font-code-body text-code-body">ESC</kbd>
+        `;
+        setTimeout(() => {
+          newLogBtn.innerHTML = originalText;
+        }, 1200);
+      });
+    }
+
+    // Keyboard shortcut for Ctrl+N
+    window.addEventListener('keydown', (e) => {
+      if ((e.ctrlKey || e.metaKey) && e.key.toLowerCase() === 'n') {
+        e.preventDefault();
+        if (newLogBtn) newLogBtn.click();
+      }
+    });
+
+    // Filter by Search
+    function filterLogs() {
+      const query = (searchInput ? searchInput.value : '').toLowerCase();
+      const selectedCategory = categoryFilter ? categoryFilter.value : 'ALL';
+
+      logRows.forEach(row => {
+        const title = (row.getAttribute('data-title') || '').toLowerCase();
+        const snippet = (row.getAttribute('data-preview') || '').toLowerCase();
+        const hash = (row.getAttribute('data-hash') || '').toLowerCase();
+        const category = row.getAttribute('data-category') || '';
+
+        const matchesQuery = !query || title.includes(query) || snippet.includes(query) || hash.includes(query);
+        const matchesCategory = selectedCategory === 'ALL' || category === selectedCategory;
+
+        if (matchesQuery && matchesCategory) {
+          row.style.display = 'grid';
+        } else {
+          row.style.display = 'none';
+        }
+      });
+    }
+
+    if (searchInput) searchInput.addEventListener('input', filterLogs);
+    if (categoryFilter) categoryFilter.addEventListener('change', filterLogs);
+
+  })();
+</script></main></div>
+
+</body></html>

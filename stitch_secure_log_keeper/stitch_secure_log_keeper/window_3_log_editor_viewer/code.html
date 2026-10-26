@@ -1,0 +1,148 @@
+<!DOCTYPE html><html class="dark" lang="en" style=""><head><meta charset="utf-8"><meta content="width=device-width, initial-scale=1.0" name="viewport"><meta content="web_dashboard" name="shell-type"><link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&amp;family=JetBrains+Mono:wght@400;500;600&amp;display=swap" rel="stylesheet"><link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"><style>@layer base{html,body{margin:0;padding:0;}body{overscroll-behavior:none;}main>:first-child{margin-top:0!important;}main>:last-child{margin-bottom:0!important;}}::-webkit-scrollbar{display:none;}</style><script src="https://cdn.tailwindcss.com"></script><script id="tailwind-config">tailwind.config={"darkMode":"class","theme":{"extend":{"colors":{"inverse-surface":"#d4e4fa","on-error-container":"#ffdad6","on-background":"#d4e4fa","error":"#ffb4ab","tertiary-fixed":"#ffdad7","on-surface-variant":"#bbcabf","tertiary-fixed-dim":"#ffb3af","surface-container":"#122131","on-tertiary-fixed-variant":"#842225","error-container":"#93000a","on-primary":"#003824","on-primary-fixed-variant":"#005236","on-error":"#690005","surface-bright":"#2c3a4c","surface-variant":"#273647","background":"#051424","primary-fixed":"#6ffbbe","secondary":"#4cd7f6","surface":"#051424","surface-container-low":"#0d1c2d","secondary-fixed":"#acedff","surface-container-highest":"#273647","primary-container":"#10b981","on-tertiary-container":"#711419","secondary-fixed-dim":"#4cd7f6","on-primary-fixed":"#002113","tertiary-container":"#fc7c78","on-primary-container":"#00422b","surface-container-lowest":"#010f1f","on-secondary-container":"#00424e","surface-dim":"#051424","surface-tint":"#4edea3","primary":"#4edea3","on-surface":"#d4e4fa","primary-fixed-dim":"#4edea3","tertiary":"#ffb3af","outline-variant":"#3c4a42","surface-container-high":"#1c2b3c","on-secondary":"#003640","outline":"#86948a","inverse-on-surface":"#233143","on-secondary-fixed-variant":"#004e5c","on-secondary-fixed":"#001f26","secondary-container":"#03b5d3","on-tertiary":"#650911","inverse-primary":"#006c49","on-tertiary-fixed":"#410005"},"borderRadius":{"DEFAULT":"0.125rem","lg":"0.25rem","xl":"0.5rem","full":"0.75rem"},"spacing":{"space-xs":"0.25rem","space-md":"0.75rem","space-sm":"0.5rem","space-xl":"2rem","space-lg":"1.25rem","margin-desktop":"2rem","margin":"1rem","gutter":"1rem","gutter-desktop":"1.5rem","margin-tablet":"1.5rem"},"fontFamily":{"headline-md":["Inter"],"body-lg":["Inter"],"code-body":["JetBrains Mono"],"headline-lg-mobile":["Inter"],"headline-lg":["Inter"],"label-mono":["JetBrains Mono"],"timestamp":["JetBrains Mono"],"display-hero":["Inter"],"headline-sm":["Inter"],"pin-display":["JetBrains Mono"],"display-hero-mobile":["Inter"],"body-sm":["Inter"],"body-md":["Inter"]},"fontSize":{"headline-md":["20px",{"lineHeight":"28px","letterSpacing":"-0.015em","fontWeight":"500"}],"body-lg":["16px",{"lineHeight":"26px","fontWeight":"400"}],"code-body":["13px",{"lineHeight":"20px","fontWeight":"400"}],"headline-lg-mobile":["22px",{"lineHeight":"30px","letterSpacing":"-0.01em","fontWeight":"600"}],"headline-lg":["28px",{"lineHeight":"36px","letterSpacing":"-0.02em","fontWeight":"600"}],"label-mono":["11px",{"lineHeight":"14px","letterSpacing":"0.05em","fontWeight":"500"}],"timestamp":["12px",{"lineHeight":"16px","letterSpacing":"0.02em","fontWeight":"400"}],"display-hero":["40px",{"lineHeight":"48px","letterSpacing":"-0.03em","fontWeight":"600"}],"headline-sm":["16px",{"lineHeight":"24px","fontWeight":"500"}],"pin-display":["24px",{"lineHeight":"32px","letterSpacing":"0.2em","fontWeight":"600"}],"display-hero-mobile":["30px",{"lineHeight":"38px","letterSpacing":"-0.02em","fontWeight":"600"}],"body-sm":["13px",{"lineHeight":"18px","fontWeight":"400"}],"body-md":["14px",{"lineHeight":"22px","fontWeight":"400"}]}}}};</script></head><body class="bg-background font-body-md text-on-surface antialiased selection:bg-primary-container selection:text-on-primary-container min-h-screen"><div class=""><main class="relative w-full min-h-screen bg-surface"><div class="flex flex-col w-full">
+<!-- Status & Environmental Scrim -->
+<div class="relative w-full px-margin-desktop py-space-sm bg-surface-container-lowest flex flex-wrap items-center justify-between gap-space-sm text-on-surface-variant">
+<div class="flex items-center gap-space-md">
+<div class="flex items-center gap-space-xs">
+<span class="w-2 h-2 rounded-full bg-primary animate-ping"></span>
+<span class="font-label-mono text-label-mono uppercase tracking-wider text-primary">Cryptographic Stream #892-A</span>
+</div>
+<span class="font-label-mono text-label-mono text-outline">|</span>
+<span class="font-label-mono text-label-mono text-on-surface-variant">Active Record: <span class="font-code-body text-code-body text-secondary">LOG-20250514-SEC-09</span></span>
+<span class="font-label-mono text-label-mono text-outline">|</span>
+<span class="px-space-xs py-0.5 rounded-full bg-primary-container/20 text-primary-fixed font-label-mono text-label-mono">Zero-Knowledge Sealed</span>
+</div>
+<div class="flex items-center gap-space-md">
+<span class="font-timestamp text-timestamp text-on-surface-variant" id="autosave-indicator">
+<span class="material-symbols-outlined text-primary text-[14px] align-middle mr-1">check_circle</span>All changes encrypted and synced
+      </span>
+<button class="flex items-center gap-space-xs text-on-surface-variant hover:text-secondary transition-colors duration-150" id="toggle-history-btn" type="button">
+<span class="material-symbols-outlined text-[16px]">history</span>
+<span class="font-label-mono text-label-mono uppercase">Version Ledger (v4)</span>
+</button>
+</div>
+</div>
+<!-- Top Master Bar: Timestamp, Classification, Title & Immediate Action -->
+<header class="w-full bg-surface-container-low px-margin-desktop py-space-md shadow-md z-30">
+<div class="flex flex-col gap-space-md">
+<!-- Row 1: Log Title & Primary Action Strip -->
+<div class="flex flex-col xl:flex-row xl:items-center justify-between gap-space-md">
+<div class="flex-1 flex items-center gap-space-sm min-w-0">
+<div class="w-8 h-8 rounded bg-surface-container-high flex items-center justify-center shrink-0 text-secondary">
+<span class="material-symbols-outlined text-[20px]">edit_note</span>
+</div>
+<div class="flex-1 min-w-0">
+<input class="w-full bg-surface-container-lowest px-space-md py-2 rounded text-on-surface font-headline-md text-headline-md tracking-tight placeholder-outline focus:outline-none focus:bg-surface-container transition-all" id="log-title-input" placeholder="Enter immutable log record title or incident summary..." type="text" value="CRITICAL: Kernel Memory Partition Leak in Pod Cluster prod-eu-west-03">
+</div>
+</div>
+<div class="flex items-center gap-space-sm shrink-0">
+<button class="flex items-center gap-space-xs px-space-md py-2 rounded bg-surface-container hover:bg-surface-container-highest text-on-surface-variant hover:text-on-surface transition-all duration-150" id="discard-btn" type="button">
+<span class="material-symbols-outlined text-[18px]">undo</span>
+<span class="font-label-mono text-label-mono uppercase">Discard</span>
+</button>
+
+<button class="flex items-center gap-space-xs px-space-lg py-2 rounded bg-primary hover:bg-primary-fixed text-on-primary font-medium shadow-sm transition-all duration-150 active:scale-95" id="save-update-btn" type="button">
+<span class="material-symbols-outlined text-[18px]">verified</span>
+<span class="font-label-mono text-label-mono uppercase font-semibold">Save &amp; Commit Block</span>
+</button>
+</div>
+</div>
+<!-- Row 2: Precision Timing Engine & Category Matrix -->
+<div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-12 gap-space-sm pt-space-xs">
+<!-- Date Picker Segment -->
+<div class="xl:col-span-3 flex items-center bg-surface-container-lowest rounded px-space-sm py-1.5 focus-within:bg-surface-container transition-colors">
+<span class="material-symbols-outlined text-outline text-[18px] mr-2">calendar_today</span>
+<div class="flex flex-col flex-1">
+<label class="font-label-mono text-label-mono text-outline uppercase leading-none" for="log-date">Incident Date</label>
+<input class="bg-transparent text-on-surface font-timestamp text-timestamp focus:outline-none cursor-pointer mt-0.5" id="log-date" type="date" value="2025-05-14">
+</div>
+</div>
+<!-- Time Picker Segment (HH:MM:SS) -->
+<div class="xl:col-span-3 flex items-center bg-surface-container-lowest rounded px-space-sm py-1.5 focus-within:bg-surface-container transition-colors">
+<span class="material-symbols-outlined text-outline text-[18px] mr-2">schedule</span>
+<div class="flex flex-col flex-1">
+<label class="font-label-mono text-label-mono text-outline uppercase leading-none" for="log-time">Timestamp (HH:MM:SS)</label>
+<input class="bg-transparent text-on-surface font-timestamp text-timestamp focus:outline-none cursor-pointer mt-0.5" id="log-time" step="1" type="time" value="18:37:42">
+</div>
+<button class="px-space-xs py-1 rounded bg-surface-container-high hover:bg-surface-bright text-secondary font-label-mono text-label-mono uppercase transition-colors shrink-0" id="now-btn" title="Sync with atomic clock" type="button">
+            Current
+          </button>
+</div>
+<!-- Timezone Selector -->
+
+<!-- Log Category / Classification Dropdown -->
+
+<!-- Severity Rating Marker -->
+
+</div>
+</div>
+</header>
+<!-- Main Canvas: Workspace Split with Side-by-Side Formatting and Inspector Panel -->
+<div class="flex-1 w-full flex flex-col xl:flex-row relative">
+<!-- Editor Core Section -->
+<section class="flex-1 flex flex-col bg-surface min-w-0">
+<!-- Formatting Toolbar -->
+<div class="w-full bg-surface-container px-margin-desktop py-2 flex flex-wrap items-center justify-between gap-space-sm shadow-sm select-none">
+<div class="flex items-center gap-1 flex-wrap">
+<button class="toolbar-btn w-8 h-8 rounded flex items-center justify-center text-on-surface-variant hover:text-on-surface hover:bg-surface-container-high transition-colors" data-cmd="bold" title="Bold (**text**)" type="button">
+<span class="material-symbols-outlined text-[18px]">format_bold</span>
+</button>
+<button class="toolbar-btn w-8 h-8 rounded flex items-center justify-center text-on-surface-variant hover:text-on-surface hover:bg-surface-container-high transition-colors" data-cmd="italic" title="Italic (*text*)" type="button">
+<span class="material-symbols-outlined text-[18px]">format_italic</span>
+</button>
+<button class="toolbar-btn w-8 h-8 rounded flex items-center justify-center text-on-surface-variant hover:text-on-surface hover:bg-surface-container-high transition-colors" data-cmd="heading" title="Section Heading (###)" type="button">
+<span class="material-symbols-outlined text-[18px]">title</span>
+</button>
+<div class="w-px h-5 bg-outline-variant mx-1"></div>
+<button class="toolbar-btn w-8 h-8 rounded flex items-center justify-center text-on-surface-variant hover:text-on-surface hover:bg-surface-container-high transition-colors" data-cmd="code" title="Inline Code / Monospace" type="button">
+<span class="material-symbols-outlined text-[18px]">code</span>
+</button>
+<button class="toolbar-btn w-8 h-8 rounded flex items-center justify-center text-on-surface-variant hover:text-on-surface hover:bg-surface-container-high transition-colors" data-cmd="codeblock" title="Encrypted Terminal Code Block" type="button">
+<span class="material-symbols-outlined text-[18px]">data_object</span>
+</button>
+<button class="toolbar-btn w-8 h-8 rounded flex items-center justify-center text-on-surface-variant hover:text-on-surface hover:bg-surface-container-high transition-colors" data-cmd="list" title="Bullet Ledger" type="button">
+<span class="material-symbols-outlined text-[18px]">format_list_bulleted</span>
+</button>
+<button class="toolbar-btn w-8 h-8 rounded flex items-center justify-center text-on-surface-variant hover:text-on-surface hover:bg-surface-container-high transition-colors" data-cmd="quote" title="Cryptographic Attestation Quote" type="button">
+<span class="material-symbols-outlined text-[18px]">format_quote</span>
+</button>
+<div class="w-px h-5 bg-outline-variant mx-1"></div>
+<button class="flex items-center gap-1 px-space-xs py-1 rounded bg-surface-container-high hover:bg-surface-bright text-secondary font-label-mono text-label-mono transition-colors" id="insert-timestamp-btn" title="Inject Realtime Precision UTC Stamp" type="button">
+<span class="material-symbols-outlined text-[15px]">more_time</span>
+<span class="">+STAMP</span>
+</button>
+<button class="flex items-center gap-1 px-space-xs py-1 rounded bg-error-container/20 text-error hover:bg-error-container/40 font-label-mono text-label-mono transition-colors" id="insert-severity-tag-btn" title="Insert Dynamic Severity Annotation" type="button">
+<span class="material-symbols-outlined text-[15px]">flag</span>
+<span class="">[TAG:SEV-0]</span>
+</button>
+</div>
+<!-- Mode Toggle (Edit / Live Preview / Split) -->
+<div class="flex items-center gap-1 bg-surface-container-lowest p-0.5 rounded">
+<button class="px-space-sm py-1 rounded bg-surface-container-high text-on-surface font-label-mono text-label-mono uppercase transition-colors" id="tab-write" type="button">Raw Editor</button>
+<button class="px-space-sm py-1 rounded hover:bg-surface-container-high text-on-surface-variant font-label-mono text-label-mono uppercase transition-colors" id="tab-split" type="button">Dual Pane</button>
+<button class="px-space-sm py-1 rounded hover:bg-surface-container-high text-on-surface-variant font-label-mono text-label-mono uppercase transition-colors" id="tab-preview" type="button">Rendered View</button>
+</div>
+</div>
+<!-- Writing & Inspecting Area -->
+<div class="flex-1 flex flex-col lg:flex-row min-h-[580px] p-margin-desktop gap-space-md">
+<!-- Markdown Raw Editor Pane -->
+<div class="flex-1 flex flex-col bg-surface-container-lowest rounded-lg p-space-md shadow-sm relative focus-within:ring-1 focus-within:ring-primary/40 transition-all" id="editor-wrapper">
+<div class="flex items-center justify-between pb-space-xs text-on-surface-variant font-label-mono text-label-mono border-b border-surface-container mb-space-sm">
+<span class="flex items-center gap-1 text-primary">
+<span class="material-symbols-outlined text-[14px]">terminal</span>
+              SOURCE MARKDOWN (.md encrypted buffer)
+            </span>
+<span class="text-outline">AES-256 Memory Guard: ACTIVE</span>
+</div>
+<textarea class="flex-1 w-full bg-transparent text-on-surface font-code-body text-code-body leading-relaxed resize-none focus:outline-none placeholder-outline" id="editor-textarea" placeholder="Type your markdown entry here... Supports zero-knowledge markdown syntax." spellcheck="false">### INCIDENT SUMMARY
+At 18:32:04 UTC, automated health probes flagged a silent heap degradation across node cluster `prod-eu-west-03`. The memory threshold exceeded 94% without corresponding garbage collection invocations.
+
+### TIMELINE &amp; ARTIFACTS
+- `18:32:04 UTC` - Sentinel agent detected unexpected SIGSEGV signal emission on worker PID 48112.
+- `18:34:11 UTC` - Memory dumping initiated via eBPF probe. 4.2GB payload verified and signed.
+- `18:36:50 UTC` - Failover cluster triggered. Network egress diverted through backup gateway `gw-failover-09`.
+
+### ROOT CAUSE RECONSTRUCTION
+A high-frequency cryptographic challenge triggered unaligned buffer copies inside the microkernel TLS terminator:&lt;/main&gt;&lt;/div&gt;&lt;/body&gt;&lt;/html&gt;</textarea></div></div></section></div></div></main></div>
+
+</body></html>

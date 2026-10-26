@@ -1,0 +1,8 @@
+{
+  "name": "herlog",
+  "private": true,
+  "scripts": {
+    "build": "node build-notes.mjs",
+    "test": "node --test tests/build-notes.test.mjs"
+  }
+}

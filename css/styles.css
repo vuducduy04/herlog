@@ -1,0 +1,218 @@
+/* Custom CSS for HerLog - Obsidian Protocol */
+
+/* Base font setup */
+body {
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  background-color: #051424;
+  color: #d4e4fa;
+  min-height: 100vh;
+  margin: 0;
+  padding: 0;
+  user-select: text;
+  overflow-x: hidden;
+}
+
+.font-mono-code {
+  font-family: 'JetBrains Mono', monospace;
+}
+
+/* Scrollbar customizations */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+::-webkit-scrollbar-track {
+  background: #051424;
+}
+::-webkit-scrollbar-thumb {
+  background: #1c2b3c;
+  border-radius: 3px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #273647;
+}
+
+/* Animations */
+@keyframes shake {
+  0%, 100% { transform: translateX(0); }
+  20%, 60% { transform: translateX(-8px); }
+  40%, 80% { transform: translateX(8px); }
+}
+
+.animate-shake {
+  animation: shake 0.35s ease-in-out;
+}
+
+@keyframes pulseGlow {
+  0%, 100% { opacity: 0.4; }
+  50% { opacity: 0.8; }
+}
+
+.ambient-glow {
+  animation: pulseGlow 4s infinite ease-in-out;
+}
+
+/* Window Transitions */
+.window-pane {
+  display: none !important;
+  opacity: 0 !important;
+}
+
+.window-pane.active {
+  display: flex !important;
+  opacity: 1 !important;
+}
+
+/* PIN Slot indicators */
+.pin-slot {
+  transition: all 0.15s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.pin-slot.filled {
+  background-color: #1c2b3c;
+  border-color: #4edea3;
+}
+
+.pin-slot.active-cursor {
+  border-color: #4cd7f6;
+  box-shadow: 0 0 10px rgba(76, 215, 246, 0.25);
+}
+
+/* Keypad button touch/click feedback */
+.keypad-btn {
+  transition: all 0.12s ease-out;
+  user-select: none;
+  -webkit-user-select: none;
+}
+
+.keypad-btn:active {
+  transform: scale(0.96);
+  background-color: #273647;
+}
+
+/* Log row hover and selection styling */
+.log-row {
+  transition: background-color 0.12s ease, border-color 0.12s ease;
+  border-left: 2px solid transparent;
+}
+
+.log-row:hover {
+  background-color: rgba(28, 43, 60, 0.5);
+}
+
+.log-row.selected {
+  border-left-color: #4edea3;
+  background-color: rgba(28, 43, 60, 0.8);
+}
+
+/* Markdown Rendered Content Styling */
+.markdown-preview {
+  font-family: 'Inter', sans-serif;
+  color: #d4e4fa;
+  line-height: 1.7;
+}
+
+.markdown-preview h1 {
+  font-size: 1.85rem;
+  font-weight: 700;
+  color: #f8fafc;
+  margin-top: 1.25rem;
+  margin-bottom: 0.75rem;
+  padding-bottom: 0.35rem;
+  border-bottom: 1px solid #1c2b3c;
+}
+
+.markdown-preview h2 {
+  font-size: 1.45rem;
+  font-weight: 600;
+  color: #acedff;
+  margin-top: 1.15rem;
+  margin-bottom: 0.5rem;
+}
+
+.markdown-preview h3 {
+  font-size: 1.15rem;
+  font-weight: 600;
+  color: #4edea3;
+  margin-top: 1rem;
+  margin-bottom: 0.4rem;
+}
+
+.markdown-preview p {
+  margin-top: 0;
+  margin-bottom: 0.9rem;
+  color: #bbcabf;
+  font-size: 0.95rem;
+}
+
+.markdown-preview ul, .markdown-preview ol {
+  margin-left: 1.5rem;
+  margin-bottom: 0.9rem;
+  color: #d4e4fa;
+}
+
+.markdown-preview li {
+  margin-bottom: 0.35rem;
+}
+
+.markdown-preview blockquote {
+  border-left: 3px solid #10b981;
+  padding-left: 1rem;
+  margin: 1rem 0;
+  color: #94a3b8;
+  font-style: italic;
+  background-color: rgba(16, 185, 129, 0.05);
+  border-radius: 0 4px 4px 0;
+  padding-top: 0.4rem;
+  padding-bottom: 0.4rem;
+}
+
+.markdown-preview code {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.85em;
+  background-color: #010f1f;
+  color: #4cd7f6;
+  padding: 0.15rem 0.4rem;
+  border-radius: 4px;
+  border: 1px solid #1c2b3c;
+}
+
+.markdown-preview pre {
+  background-color: #010f1f;
+  border: 1px solid #1c2b3c;
+  border-radius: 6px;
+  padding: 1rem;
+  overflow-x: auto;
+  margin: 1rem 0;
+}
+
+.markdown-preview pre code {
+  background-color: transparent;
+  padding: 0;
+  border: none;
+  color: #6ffbbe;
+  font-size: 0.875rem;
+}
+
+.markdown-preview hr {
+  border: 0;
+  height: 1px;
+  background: #1c2b3c;
+  margin: 1.5rem 0;
+}
+
+.markdown-preview a {
+  color: #4cd7f6;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+.markdown-preview a:hover {
+  color: #4edea3;
+}
+
+/* Modals */
+.modal-backdrop {
+  background-color: rgba(1, 15, 31, 0.8);
+  backdrop-filter: blur(8px);
+}

@@ -1,0 +1,164 @@
+<!doctype html>
+<html lang="en">
+<meta charset="utf-8">
+<title>HerLog Markdown storage tests</title>
+<pre id="results">Running...</pre>
+<script src="../js/storage.js"></script>
+<script>
+(async () => {
+  const output = document.getElementById('results');
+  const results = [];
+  const assert = (condition, message) => {
+    if (!condition) throw new Error(message);
+    results.push(`PASS: ${message}`);
+  };
+  const originalFetch = window.fetch;
+  const originalPin = localStorage.getItem(STORAGE_KEYS.PIN);
+  const rejects = async (action, message) => {
+    let rejected = false;
+    try { await action(); } catch { rejected = true; }
+    assert(rejected, message);
+  };
+  const root = await navigator.storage.getDirectory();
+  const name = `herlog-test-${crypto.randomUUID()}`;
+  const directory = await root.getDirectoryHandle(name, { create: true });
+  const originalPicker = window.showDirectoryPicker;
+  let permission = 'granted';
+  const selectedFolder = {
+    name,
+    entries: () => directory.entries(),
+    getFileHandle: (...args) => directory.getFileHandle(...args),
+    removeEntry: (...args) => directory.removeEntry(...args),
+    requestPermission: async () => permission
+  };
+  const write = async (filename, text) => {
+    const handle = await directory.getFileHandle(filename, { create: true });
+    const stream = await handle.createWritable();
+    await stream.write(text);
+    await stream.close();
+  };
+  try {
+    localStorage.removeItem(STORAGE_KEYS.PIN);
+    const pinService = new StorageService();
+    assert(pinService.getPin() === '261018', 'fresh storage uses the six-digit default PIN');
+    assert(pinService.verifyPin('261018') && !pinService.verifyPin('20261018'), 'only the new default PIN unlocks fresh storage');
+    for (const oldPin of ['20261018', '84920173', '12345678', 'invalid']) {
+      localStorage.setItem(STORAGE_KEYS.PIN, oldPin);
+      new StorageService();
+      assert(pinService.getPin() === '261018', 'incompatible stored PIN migrates to the new six-digit default');
+    }
+    assert(pinService.setPin('001234'), 'custom six-digit PIN accepts leading zeroes');
+    new StorageService();
+    assert(pinService.getPin() === '001234', 'valid custom six-digit PIN survives initialization');
+    for (const invalidPin of ['12345', '1234567', '20261018', '12a456', '']) {
+      assert(!pinService.setPin(invalidPin), 'PIN setter rejects non-six-digit values');
+    }
+    assert(pinService.getPin() === '001234', 'rejected PIN changes preserve the current PIN');
+    assert(pinService.resetPin() === '261018' && pinService.verifyPin('261018'), 'reset restores the six-digit default PIN');
+    const published = new StorageService();
+    const entry = { file: 'note #1 %.md', modifiedAt: '2026-10-26T00:00:00Z' };
+    const markdown = '---\nherlog: {"title":"Published note","date":"2026-10-25","time":"09:00","updatedAt":"2026-10-25T09:00:00Z"}\n---\n# Published\n\nBody';
+    let manifest = [entry];
+    let indexStatus = 200;
+    let noteStatus = 200;
+    let body = markdown;
+    window.fetch = async url => {
+      const path = new URL(url).pathname;
+      if (path.endsWith('/notes/index.json')) {
+        return new Response(JSON.stringify(manifest), { status: indexStatus });
+      }
+      assert(path.endsWith(`/notes/${encodeURIComponent(entry.file)}`), 'published note URL encodes special filename characters');
+      return new Response(body, { status: noteStatus });
+    };
+    await published.loadPublishedNotes();
+    assert(published.getLogs().length === 1, 'published notes load without folder selection');
+    assert(published.notesDirectory === null, 'published reads do not request local folder access');
+    assert(published.getLogs()[0].content === '# Published\n\nBody', 'published metadata and Markdown use the same parser as local files');
+    assert(published.getLogs()[0].date === '2026-10-25', 'published note retains its canonical date');
+    await rejects(() => published.saveLog({ id: entry.file, content: 'Overwrite' }), 'published notes reject writes');
+    await rejects(() => published.deleteLogs([entry.file]), 'published notes reject deletes');
+    indexStatus = 404;
+    await rejects(() => published.refreshNotesFolder(), 'missing index reports a load error');
+    assert(published.getLogs().length === 1 && published.publishedStatus === 'error', 'failed refresh keeps the previous notes and exposes error status');
+    indexStatus = 200;
+    noteStatus = 404;
+    await rejects(() => published.loadPublishedNotes(), 'missing Markdown reports a load error');
+    noteStatus = 200;
+    body = '---\nherlog: {broken}\n---\nBody';
+    await rejects(() => published.loadPublishedNotes(), 'malformed published metadata reports a load error');
+    body = markdown;
+    manifest = [{ ...entry, file: '../private.md' }];
+    await rejects(() => published.loadPublishedNotes(), 'index rejects filenames outside the notes folder');
+    manifest = [entry, entry];
+    await rejects(() => published.loadPublishedNotes(), 'index rejects duplicate entries');
+    manifest = [];
+    await published.loadPublishedNotes();
+    assert(published.getLogs().length === 0, 'empty published folder does not fall back to browser or seed logs');
+    window.fetch = originalFetch;
+    window.showDirectoryPicker = async () => selectedFolder;
+    const service = new StorageService();
+    await service.selectNotesFolder();
+    assert(service.getLogs().length === 0, 'empty folder does not restore seed logs');
+    const created = await service.saveLog({ title: 'Untitled Log', content: '' });
+    assert(created.id.endsWith('.md'), 'creating a note creates a Markdown file');
+    const handle = await directory.getFileHandle(created.id);
+    assert((await (await handle.getFile()).text()).includes('herlog:'), 'file is persisted with metadata');
+    const content = '# Hello\r\n\r\n**Markdown** and `code`\r\n';
+    const saved = await service.saveLog({ ...created, title: 'A "title"\nwith newline', content });
+    assert(saved.id === created.id, 'saving updates the same file');
+    const reopened = new StorageService();
+    await reopened.selectNotesFolder();
+    assert(reopened.getLogs()[0].content === content, 'content round-trips through a fresh service');
+    assert(reopened.getLogs()[0].title === saved.title, 'title metadata round-trips safely');
+    assert(reopened.getLogs().length === 1, 'updating does not duplicate notes');
+    const second = await service.saveLog({ title: saved.title, content: '' });
+    assert(second.id !== saved.id, 'notes with the same title have distinct filenames');
+    await write('external.md', '# External\n\nBody');
+    await reopened.refreshNotesFolder();
+    assert(reopened.getLogById('external.md').title === 'External', 'plain Markdown files are imported');
+    await write('invalid.md', '---\nherlog: {broken}\n---\nBody');
+    await rejects(() => reopened.refreshNotesFolder(), 'invalid metadata reports a read error');
+    assert(reopened.getLogs().length === 3, 'failed refresh preserves the previous folder snapshot');
+    await directory.removeEntry('invalid.md');
+    await write(created.id, '# Externally changed');
+    await rejects(() => service.saveLog({ ...saved, content: 'Overwrite' }), 'external changes block overwrites');
+    await rejects(() => service.deleteLogs([created.id]), 'external changes block deletion');
+    await service.refreshNotesFolder();
+    permission = 'denied';
+    await rejects(() => service.saveLog({ content: 'Denied' }), 'denied permission rejects saves');
+    permission = 'granted';
+    const getFileHandle = selectedFolder.getFileHandle;
+    selectedFolder.getFileHandle = async () => { throw new Error('Simulated disk failure'); };
+    const count = service.getLogs().length;
+    await rejects(() => service.saveLog({ content: 'Failure' }), 'disk failures reject saves');
+    assert(service.getLogs().length === count, 'failed save does not update cached notes');
+    selectedFolder.getFileHandle = getFileHandle;
+    const legacy = await service.saveLog({ id: '../legacy-id', title: 'Legacy', content: 'Copied' });
+    assert(!legacy.id.includes('/') && legacy.id.endsWith('.md'), 'legacy IDs receive safe Markdown filenames');
+    assert(await service.deleteLogs(service.getLogs().map(log => log.id)) === 4, 'batch delete removes all notes');
+    await service.refreshNotesFolder();
+    assert(service.getLogs().length === 0, 'empty folder remains empty after deleting and refreshing');
+    window.showDirectoryPicker = async () => { throw new DOMException('Cancelled', 'AbortError'); };
+    const cancelled = new StorageService();
+    await rejects(() => cancelled.saveLog({ content: 'Cancelled' }), 'cancelled picker rejects creation');
+    assert(cancelled.notesDirectory === null, 'cancelled picker does not connect a folder');
+    window.showDirectoryPicker = undefined;
+    await rejects(() => cancelled.selectNotesFolder(), 'unsupported browsers report an error');
+    output.textContent = results.join('\n');
+    output.dataset.status = 'passed';
+  } finally {
+    if (originalPin === null) localStorage.removeItem(STORAGE_KEYS.PIN);
+    else localStorage.setItem(STORAGE_KEYS.PIN, originalPin);
+    window.fetch = originalFetch;
+    window.showDirectoryPicker = originalPicker;
+    for await (const [filename] of directory.entries()) await directory.removeEntry(filename);
+    await root.removeEntry(name);
+  }
+})().catch(error => {
+  const output = document.getElementById('results');
+  output.textContent += `\nFAIL: ${error.stack}`;
+  output.dataset.status = 'failed';
+  console.error(error);
+});
+</script>
+</html>
