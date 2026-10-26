@@ -63,6 +63,9 @@
     statTotalLogs: document.getElementById('stat-total-logs'),
     statTotalWords: document.getElementById('stat-total-words'),
     btnLockVault: document.getElementById('btn-lock-vault'),
+    btnToggleTheme: document.getElementById('btn-toggle-theme'),
+    themeToggleIcon: document.getElementById('theme-toggle-icon'),
+    themeToggleLabel: document.getElementById('theme-toggle-label'),
 
     // Window 3: Editor Elements
     editorActiveId: document.getElementById('editor-active-id'),
@@ -97,6 +100,32 @@
     // Toast Container
     toastContainer: document.getElementById('toast-container')
   };
+
+  // =========================================================================
+  // THEME
+  // =========================================================================
+  function updateThemeButton() {
+    if (!el.btnToggleTheme) return;
+    const dark = document.documentElement.dataset.theme === 'dark';
+    el.btnToggleTheme.setAttribute('aria-pressed', String(dark));
+    el.btnToggleTheme.title = dark ? 'Switch to light mode' : 'Switch to dark mode';
+    if (el.themeToggleIcon) el.themeToggleIcon.textContent = dark ? 'dark_mode' : 'light_mode';
+    if (el.themeToggleLabel) el.themeToggleLabel.textContent = dark ? 'Dark mode' : 'Light mode';
+  }
+
+  if (el.btnToggleTheme) {
+    el.btnToggleTheme.addEventListener('click', () => {
+      const theme = document.documentElement.dataset.theme === 'dark' ? 'light' : 'dark';
+      document.documentElement.dataset.theme = theme;
+      updateThemeButton();
+      try {
+        localStorage.setItem('herlog_theme_v1', theme);
+      } catch (error) {
+        console.error('Could not save theme preference:', error);
+        showToast('Theme changed for this visit, but your browser could not save the preference.', 'warn');
+      }
+    });
+  }
 
   // =========================================================================
   // TOAST NOTIFICATIONS
@@ -1086,6 +1115,7 @@
   // INITIALIZATION
   // =========================================================================
   function init() {
+    updateThemeButton();
     // Start at Window 1 (Lock Screen)
     showWindow('lock');
     updateStorageUI();

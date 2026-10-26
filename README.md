@@ -2,7 +2,9 @@
 
 A distraction-free personal daily life log keeper with a soft, romantic pastel theme: blush pink, warm white, rose accents, and butter-yellow highlights across the lock screen, dashboard, editor, dialogs, and notifications.
 
-Theme colors are shared CSS variables in `css/styles.css`, used by both Tailwind utilities and custom Markdown styles. Dark rose/plum text keeps the light surfaces readable; controls and date/time pickers use the light color scheme.
+Theme colors are shared CSS variables in `css/styles.css`, used by both Tailwind utilities and custom Markdown styles. Dark rose/plum text keeps the light surfaces readable.
+
+The theme toggle immediately to the left of **Lock Vault** shows the current theme: **Light mode** with a sun icon or **Dark mode** with a moon icon. Clicking it switches every window, Markdown preview, dialog, notification, and native date/time picker between the pastel light theme and a matching plum-and-rose dark palette with soft pink text and muted gold accents. Light mode is the default. Your choice is saved per browser in `localStorage` and restored before the page is styled, including on the lock screen. If the browser blocks saving the preference, the theme still changes for the current visit and a warning is shown.
 
 ---
 

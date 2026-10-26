@@ -25,6 +25,40 @@
   --color-error-container: 255 222 229;
   --color-on-error: 255 255 255;
   --color-warning: 122 77 12;
+  --color-shadow: 173 49 86;
+  --color-backdrop: 83 47 64;
+  --backdrop-opacity: 0.25;
+}
+
+:root[data-theme="dark"] {
+  color-scheme: dark;
+  --color-surface: 31 23 33;
+  --color-surface-dim: 23 17 25;
+  --color-surface-bright: 52 39 39;
+  --color-surface-container-lowest: 25 19 29;
+  --color-surface-container-low: 39 29 42;
+  --color-surface-container: 49 34 47;
+  --color-surface-container-high: 67 46 62;
+  --color-surface-container-highest: 82 57 73;
+  --color-background: 26 19 28;
+  --color-on-surface: 255 235 243;
+  --color-on-surface-variant: 225 197 211;
+  --color-outline: 199 168 186;
+  --color-outline-variant: 137 101 123;
+  --color-primary: 244 155 185;
+  --color-primary-container: 98 47 69;
+  --color-on-primary: 255 218 232;
+  --color-primary-fixed: 119 58 83;
+  --color-secondary: 226 179 207;
+  --color-secondary-container: 67 53 35;
+  --color-on-secondary: 247 220 165;
+  --color-error: 255 164 179;
+  --color-error-container: 85 34 49;
+  --color-on-error: 70 20 35;
+  --color-warning: 244 209 144;
+  --color-shadow: 8 5 12;
+  --color-backdrop: 10 5 15;
+  --backdrop-opacity: 0.7;
 }
 
 /* Base font setup */
@@ -243,8 +277,13 @@ body {
 
 /* Modals */
 .modal-backdrop {
-  background-color: rgb(var(--color-on-surface) / 0.25);
+  background-color: rgb(var(--color-backdrop) / var(--backdrop-opacity));
   backdrop-filter: blur(8px);
+}
+
+#btn-toggle-theme[aria-pressed="true"] {
+  background-color: rgb(var(--color-primary-container));
+  border-color: rgb(var(--color-primary));
 }
 
 button:disabled {

@@ -4,6 +4,18 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>HerLogr</title>
+  <script>
+    try {
+      const savedTheme = localStorage.getItem('herlog_theme_v1');
+      if (savedTheme === 'light' || savedTheme === 'dark') {
+        document.documentElement.dataset.theme = savedTheme;
+      } else if (savedTheme !== null) {
+        console.warn('Unrecognized theme preference; using the light theme.');
+      }
+    } catch (error) {
+      console.error('Could not restore theme preference:', error);
+    }
+  </script>
   
   <!-- Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -44,12 +56,12 @@
             "warning": "rgb(var(--color-warning) / <alpha-value>)"
           },
           boxShadow: {
-            "sm": "0 2px 6px rgb(var(--color-primary) / 0.05)",
-            "md": "0 6px 16px rgb(var(--color-primary) / 0.07)",
-            "lg": "0 10px 24px rgb(var(--color-primary) / 0.08)",
-            "xl": "0 16px 36px rgb(var(--color-primary) / 0.09)",
-            "2xl": "0 24px 60px rgb(var(--color-primary) / 0.12)",
-            "inner": "inset 0 2px 4px rgb(var(--color-primary) / 0.04)"
+            "sm": "0 2px 6px rgb(var(--color-shadow) / 0.05)",
+            "md": "0 6px 16px rgb(var(--color-shadow) / 0.07)",
+            "lg": "0 10px 24px rgb(var(--color-shadow) / 0.08)",
+            "xl": "0 16px 36px rgb(var(--color-shadow) / 0.09)",
+            "2xl": "0 24px 60px rgb(var(--color-shadow) / 0.12)",
+            "inner": "inset 0 2px 4px rgb(var(--color-shadow) / 0.04)"
           },
           fontFamily: {
             "sans": ["Inter", "sans-serif"],
@@ -166,6 +178,10 @@
       </div>
 
       <div class="flex items-center gap-2">
+        <button type="button" id="btn-toggle-theme" class="px-3 py-1.5 rounded-lg bg-surface-container hover:bg-surface-container-high text-secondary text-xs font-mono flex items-center gap-1.5 border border-secondary/30 transition-colors" aria-label="Toggle dark mode" aria-pressed="false" title="Switch to dark mode">
+          <span id="theme-toggle-icon" class="material-symbols-outlined text-[16px]" aria-hidden="true">light_mode</span>
+          <span id="theme-toggle-label" class="hidden sm:inline">Light mode</span>
+        </button>
         <!-- Lock Vault button -->
         <button type="button" id="btn-lock-vault" class="px-3 py-1.5 rounded-lg bg-error-container/20 hover:bg-error-container/40 text-error text-xs font-mono flex items-center gap-1.5 border border-error-container/30 transition-colors" title="Lock the vault and return to Lock Screen">
           <span class="material-symbols-outlined text-[16px]">lock</span>
