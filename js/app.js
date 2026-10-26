@@ -107,10 +107,10 @@
     const isError = type === 'error';
     const isWarn = type === 'warn';
     const icon = isError ? 'error' : isWarn ? 'warning' : 'check_circle';
-    const borderColor = isError ? 'border-error/40' : isWarn ? 'border-amber-500/40' : 'border-primary/40';
-    const iconColor = isError ? 'text-error' : isWarn ? 'text-amber-400' : 'text-primary';
+    const borderColor = isError ? 'border-error/40' : isWarn ? 'border-warning/40' : 'border-primary/40';
+    const iconColor = isError ? 'text-error' : isWarn ? 'text-warning' : 'text-primary';
 
-    toast.className = `flex items-center gap-2.5 px-4 py-3 rounded-xl bg-surface-container-high text-white text-xs font-mono shadow-2xl border ${borderColor} transition-all duration-300 transform translate-y-2 opacity-0 pointer-events-auto`;
+    toast.className = `flex items-center gap-2.5 px-4 py-3 rounded-xl bg-surface-container-low text-on-surface text-xs font-mono shadow-2xl border ${borderColor} transition-all duration-300 transform translate-y-2 opacity-0 pointer-events-auto`;
     toast.innerHTML = `
       <span class="material-symbols-outlined text-[18px] ${iconColor}">${icon}</span>
       <span>${escapeHtml(message)}</span>
@@ -284,7 +284,7 @@
       el.pinSlots.forEach(slot => {
         slot.classList.add('border-primary');
         const dot = slot.querySelector('.pin-dot');
-        if (dot) dot.className = 'pin-dot w-3.5 h-3.5 rounded-full bg-primary-fixed shadow-md';
+        if (dot) dot.className = 'pin-dot w-3.5 h-3.5 rounded-full bg-primary shadow-md';
       });
 
       setTimeout(() => {
@@ -407,14 +407,14 @@
         el.logListContainer.innerHTML = `
           <div class="p-12 text-center flex flex-col items-center justify-center text-on-surface-variant font-mono text-sm">
             <span class="material-symbols-outlined text-[48px] text-outline mb-2">article</span>
-            <p class="font-semibold text-white">No Logs Found</p>
+            <p class="font-semibold text-on-surface">No Logs Found</p>
             <p class="text-xs text-outline mt-1 max-w-sm">
               ${state.searchQuery ? `No logs match "${escapeHtml(state.searchQuery)}". Try another query.` :
                 window.StorageService.notesDirectory ? 'Your journal is currently empty. Click "New Log" to create your first entry.' :
                   'No published notes are available. Add Markdown files to the project notes folder and rebuild, or select a local folder to write.'}
             </p>
             ${!state.searchQuery ? `
-              <button type="button" class="mt-4 px-4 py-2 rounded-lg bg-primary text-on-primary font-bold text-xs" onclick="document.getElementById('btn-new-log').click()">
+              <button type="button" class="mt-4 px-4 py-2 rounded-lg bg-primary-container text-on-primary font-bold text-xs" onclick="document.getElementById('btn-new-log').click()">
                 + Write First Log
               </button>
             ` : ''}
@@ -458,14 +458,14 @@
           <div class="col-span-5 sm:col-span-6 flex flex-col min-w-0 pr-2">
             <div class="flex items-center gap-2">
               <span class="w-2 h-2 rounded-full bg-primary shrink-0"></span>
-              <span class="font-semibold text-white text-sm truncate group-hover:text-primary transition-colors">${escapeHtml(log.title || 'Untitled')}</span>
+              <span class="font-semibold text-on-surface text-sm truncate group-hover:text-primary transition-colors">${escapeHtml(log.title || 'Untitled')}</span>
             </div>
             <p class="font-sans text-xs text-on-surface-variant truncate mt-0.5">${escapeHtml(cleanSnippet)}</p>
           </div>
 
           <!-- Col 4: Words & Size -->
           <div class="hidden sm:flex sm:col-span-2 flex-col items-end justify-center font-mono text-xs text-on-surface-variant">
-            <span class="text-white">${log.words || 0} w</span>
+            <span class="text-on-surface">${log.words || 0} w</span>
             <span class="text-[10px] text-outline">${escapeHtml(log.size || '0 KB')}</span>
           </div>
 
@@ -841,13 +841,13 @@
     const isRendered = state.editorMode === 'rendered';
 
     if (el.tabModeRaw) {
-      el.tabModeRaw.className = isRaw ? 'px-2.5 py-1 rounded-md bg-surface-container text-white font-bold' : 'px-2.5 py-1 rounded-md text-on-surface-variant hover:text-white';
+      el.tabModeRaw.className = isRaw ? 'px-2.5 py-1 rounded-md bg-surface-container text-on-surface font-bold' : 'px-2.5 py-1 rounded-md text-on-surface-variant hover:text-on-surface';
     }
     if (el.tabModeDual) {
-      el.tabModeDual.className = isDual ? 'px-2.5 py-1 rounded-md bg-surface-container text-white font-bold' : 'px-2.5 py-1 rounded-md text-on-surface-variant hover:text-white';
+      el.tabModeDual.className = isDual ? 'px-2.5 py-1 rounded-md bg-surface-container text-on-surface font-bold' : 'px-2.5 py-1 rounded-md text-on-surface-variant hover:text-on-surface';
     }
     if (el.tabModeRendered) {
-      el.tabModeRendered.className = isRendered ? 'px-2.5 py-1 rounded-md bg-surface-container text-white font-bold' : 'px-2.5 py-1 rounded-md text-on-surface-variant hover:text-white';
+      el.tabModeRendered.className = isRendered ? 'px-2.5 py-1 rounded-md bg-surface-container text-on-surface font-bold' : 'px-2.5 py-1 rounded-md text-on-surface-variant hover:text-on-surface';
     }
 
     if (isRaw) {

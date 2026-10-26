@@ -1,6 +1,8 @@
 # HerLog — Sovereign Daily Life Log Keeper
 
-A secure, distraction-free personal daily life log keeper built with the **Obsidian Protocol** cryptographic dark aesthetic, inspired by the designed UI in `stitch_secure_log_keeper`.
+A distraction-free personal daily life log keeper with a soft, romantic pastel theme: blush pink, warm white, rose accents, and butter-yellow highlights across the lock screen, dashboard, editor, dialogs, and notifications.
+
+Theme colors are shared CSS variables in `css/styles.css`, used by both Tailwind utilities and custom Markdown styles. Dark rose/plum text keeps the light surfaces readable; controls and date/time pickers use the light color scheme.
 
 ---
 
@@ -26,7 +28,7 @@ A secure, distraction-free personal daily life log keeper built with the **Obsid
 - **1/4 Screen Width Control Panel (Right Region):**
   - **Default Notes Folder:** Automatically reads published Markdown files from the project's `notes/` directory without a folder picker. Published notes are read-only.
   - **Local Editing:** Select a local folder and grant read/write access to create, update, or delete Markdown files on your computer.
-  - **Button 1 ("New Log"):** Emerald action button (`Ctrl+N`) that immediately creates an untitled `.md` file in the selected folder and opens it for editing.
+  - **Button 1 ("New Log"):** Pastel-pink action button (`Ctrl+N`) that immediately creates an untitled `.md` file in the selected folder and opens it for editing.
   - **Button 2 ("Select Log"):** Activates selection mode. Allows multi-selecting logs via individual checkboxes or "Mark All".
   - **Batch Delete:** When logs are selected, a prominent *"Delete Selected"* button appears with confirmation modal to safely and permanently delete chosen records.
   - **Vault Statistics:** Live total log and word count metrics.
@@ -108,7 +110,7 @@ Run `npm test` for index-generation tests. Open `http://localhost:8000/tests/sto
 
 ## File Structure
 - `index.html` — Main Single Page Application structure for Windows 1, 2, and 3, plus modals.
-- `css/styles.css` — Custom animations, dark theme transitions, and typography styles.
+- `css/styles.css` — Shared pastel theme palette, animations, and Markdown typography styles.
 - `js/storage.js` — Markdown folder persistence, legacy browser logs, sample daily life logs, and PIN management.
 - `js/app.js` — Application controllers, state transitions, selection modes, and Markdown parsing.
 - `notes/` — Default published Markdown source; also select this local folder when editing files for Git.
